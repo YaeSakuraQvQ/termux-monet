@@ -1,14 +1,13 @@
-name: Build nightly
+name: Build
 
 on:
-  workflow_dispatch:
+  push:
+    branches:
+      - master
+      - 'github-releases/**'
   pull_request:
     branches:
       - master
-
-concurrency:
-  group: ${{ github.workflow }}
-  cancel-in-progress: true
 
 jobs:
   build:
@@ -16,7 +15,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        package_variant: [ apt-android-7 ]
+        package_variant: [ apt-android-7, apt-android-5 ]
 
     steps:
       - name: Clone repository
